@@ -7,16 +7,16 @@ import (
 )
 
 var (
-	styleGET    = lipgloss.NewStyle().Foreground(lipgloss.Color("10"))  // Green for get
-	stylePOST   = lipgloss.NewStyle().Foreground(lipgloss.Color("11"))  // Yellow for post
-	stylePUT    = lipgloss.NewStyle().Foreground(lipgloss.Color("14"))  // Cyan for put
-	stylePATCH  = lipgloss.NewStyle().Foreground(lipgloss.Color("13"))  // Magenta for patch
-	styleDELETE = lipgloss.NewStyle().Foreground(lipgloss.Color("196")) // Red for delete
+	styleGET    = lipgloss.NewStyle().Foreground(lipgloss.Color("10"))
+	stylePOST   = lipgloss.NewStyle().Foreground(lipgloss.Color("11"))
+	stylePUT    = lipgloss.NewStyle().Foreground(lipgloss.Color("14"))
+	stylePATCH  = lipgloss.NewStyle().Foreground(lipgloss.Color("13"))
+	styleDELETE = lipgloss.NewStyle().Foreground(lipgloss.Color("196"))
 	styleDim    = lipgloss.NewStyle().Faint(true)
 )
 
 func (m Method) View() string {
-	method := listTypes()[m.selected]
+	method := listedTypes[m.selected]
 	style := getStyleForMethod(method)
 
 	if m.focused {

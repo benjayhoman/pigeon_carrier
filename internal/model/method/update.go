@@ -11,10 +11,10 @@ func (m *Method) Update(msg tea.Msg) tea.Cmd {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyUp:
-			m.selected = (m.selected - 1 + len(listTypes())) % len(listTypes())
+			m.selected = (m.selected - 1 + listedTypesLen) % listedTypesLen
 
 		case tea.KeyDown:
-			m.selected = (m.selected + 1) % len(listTypes())
+			m.selected = (m.selected + 1) % listedTypesLen
 		}
 	}
 	return nil

@@ -12,6 +12,11 @@ const (
 	PATCH  MethodType = "PATCH"
 )
 
+var (
+	listedTypes    = listTypes()      // this should never change. Keep it precomputed
+	listedTypesLen = len(listedTypes) // this should never change. Keep it precomputed
+)
+
 type Method struct {
 	selected int
 	focused  bool
