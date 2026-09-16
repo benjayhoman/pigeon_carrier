@@ -3,20 +3,20 @@ package program
 import (
 	"github.com/pigeon_carrier/internal/action"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		switch msg.Type {
-		case tea.KeyCtrlC, tea.KeyEsc:
+	case tea.KeyPressMsg:
+		switch msg.String() {
+		case "ctrl+c", "esc":
 			return m, tea.Quit
 
-		case tea.KeyTab:
+		case "tab":
 			return m.incrementAndSetFocus(1)
 
-		case tea.KeyShiftTab:
+		case "shift+tab":
 			return m.incrementAndSetFocus(-1)
 		}
 

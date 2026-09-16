@@ -1,8 +1,8 @@
 package headerentry
 
 import (
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
+	"charm.land/bubbles/v2/textinput"
+	tea "charm.land/bubbletea/v2"
 )
 
 type textInput struct {
@@ -22,13 +22,13 @@ func (t *textInput) Update(msg tea.Msg) tea.Cmd {
 	textLength := len(t.Model.Value())
 
 	if textLength < MinWidth {
-		t.Model.Width = MinWidth
+		t.Model.SetWidth(MinWidth)
 
 	} else if textLength > MaxWidth {
-		t.Model.Width = MaxWidth
+		t.Model.SetWidth(MaxWidth)
 
 	} else {
-		t.Model.Width = textLength + 1
+		t.Model.SetWidth(textLength + 1)
 	}
 
 	m, cmd := t.Model.Update(msg)

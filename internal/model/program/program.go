@@ -6,8 +6,8 @@ import (
 	"github.com/pigeon_carrier/internal/model/results"
 	"github.com/pigeon_carrier/internal/model/urlinput"
 
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
+	"charm.land/bubbles/v2/textinput"
+	tea "charm.land/bubbletea/v2"
 )
 
 type Program struct {

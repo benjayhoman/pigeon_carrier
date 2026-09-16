@@ -1,7 +1,7 @@
 package urlinput
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 func (m *UrlInput) Update(msg tea.Msg) tea.Cmd {

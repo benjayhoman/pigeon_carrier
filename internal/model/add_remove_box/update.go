@@ -1,7 +1,7 @@
 package addremovebox
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 func (b *AddRemoveBox) Update(msg tea.Msg) tea.Cmd {
@@ -10,9 +10,9 @@ func (b *AddRemoveBox) Update(msg tea.Msg) tea.Cmd {
 	}
 
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		switch msg.Type {
-		case tea.KeyEnter:
+	case tea.KeyPressMsg:
+		switch msg.String() {
+		case "enter":
 			if b.action != nil {
 				return b.action.Do()
 			}

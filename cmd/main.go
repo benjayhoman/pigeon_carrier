@@ -6,7 +6,7 @@ import (
 
 	"github.com/pigeon_carrier/internal/model/program"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 func main() {

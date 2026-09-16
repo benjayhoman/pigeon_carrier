@@ -3,21 +3,23 @@ package program
 import (
 	"fmt"
 
-	"github.com/charmbracelet/lipgloss"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 )
 
 var (
 	styleDim = lipgloss.NewStyle().Faint(true) // Dim for other protocols
 )
 
-func (m Program) View() string {
+func (m Program) View() tea.View {
 	urlInputView := m.urlInput.View()
 	headersView := m.headers.View()
 	resultsView := m.results.View()
 
-	return fmt.Sprintf("%s\n%s\n%s%s",
+	view := tea.NewView(fmt.Sprintf("%s\n%s\n%s%s",
 		urlInputView,
 		headersView,
 		resultsView,
-		styleDim.Render("([Ctrl+Enter] to send, [Ctrl+C] to quit)"))
+		styleDim.Render("([Ctrl+Enter] to send, [Ctrl+C] to quit)")))
+	return view
 }

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/lipgloss/v2"
 )
 
 var (
@@ -22,7 +22,7 @@ func (m UrlInput) View() string {
 	val := m.textInput.Value()
 
 	if strings.TrimSpace(val) != "" {
-		highlighted := m.highlightWithCursor(val, m.textInput.Position(), m.textInput.Cursor.Style)
+		highlighted := m.highlightWithCursor(val, m.textInput.Position(), styleCursor)
 		inputView = m.textInput.Prompt + highlighted
 
 	} else {

@@ -1,6 +1,6 @@
 package addremovebox
 
-import "github.com/charmbracelet/lipgloss"
+import "charm.land/lipgloss/v2"
 
 var (
 	styleDim     = lipgloss.NewStyle().Faint(true)

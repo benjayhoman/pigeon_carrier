@@ -4,7 +4,7 @@ import (
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
 
-	"github.com/charmbracelet/bubbles/textinput"
+	"charm.land/bubbles/v2/textinput"
 	"github.com/google/uuid"
 )
 
@@ -43,7 +43,8 @@ func newTextInput(placeholder string) textInput {
 	ti := textInput{textinput.New()}
 	ti.Placeholder = placeholder
 	ti.CharLimit = MaxSize
-	ti.Width = MinWidth
+	ti.SetWidth(MinWidth)
+	ti.SetVirtualCursor(true)
 	ti.Prompt = ""
 	return ti
 }

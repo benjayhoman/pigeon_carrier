@@ -5,7 +5,7 @@ import (
 	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 type Headers struct {

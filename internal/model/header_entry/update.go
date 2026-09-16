@@ -1,6 +1,6 @@
 package headerentry
 
-import tea "github.com/charmbracelet/bubbletea"
+import tea "charm.land/bubbletea/v2"
 
 func (e *Entry) Update(msg tea.Msg) tea.Cmd {
 	removeCmd := e.removeHeader.Update(msg)

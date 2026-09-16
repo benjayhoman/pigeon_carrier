@@ -1,7 +1,7 @@
 package headers
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 	"github.com/pigeon_carrier/internal/action"
 )
 

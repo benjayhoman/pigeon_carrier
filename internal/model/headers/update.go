@@ -3,7 +3,7 @@ package headers
 import (
 	"slices"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 	"github.com/pigeon_carrier/internal/action"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
 )
@@ -23,7 +23,9 @@ func (h *Headers) Update(msg tea.Msg) tea.Cmd {
 		})
 
 		updateFocus := action.UpdateFocus{Increment: 0}
-		return func() tea.Msg { return updateFocus }
+		// Removing a header shrinks the inline view; clear the screen so the
+		// renderer repaints from the top instead of leaving a stale first line.
+		return tea.Batch(tea.ClearScreen, func() tea.Msg { return updateFocus })
 	}
 
 	addHeaderCmd := h.addNewHeader.Update(msg)

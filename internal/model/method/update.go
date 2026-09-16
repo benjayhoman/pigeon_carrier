@@ -1,6 +1,6 @@
 package method
 
-import tea "github.com/charmbracelet/bubbletea"
+import tea "charm.land/bubbletea/v2"
 
 func (m *Method) Update(msg tea.Msg) tea.Cmd {
 	if !m.focused {
@@ -8,12 +8,12 @@ func (m *Method) Update(msg tea.Msg) tea.Cmd {
 	}
 
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		switch msg.Type {
-		case tea.KeyUp:
+	case tea.KeyPressMsg:
+		switch msg.String() {
+		case "up":
 			m.selected = (m.selected - 1 + listedTypesLen) % listedTypesLen
 
-		case tea.KeyDown:
+		case "down":
 			m.selected = (m.selected + 1) % listedTypesLen
 		}
 	}

@@ -3,9 +3,9 @@ package urlinput
 import (
 	"github.com/pigeon_carrier/internal/model/method"
 
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/textinput"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 )
 
 const (
@@ -30,11 +30,15 @@ func (m UrlInput) Init() tea.Cmd {
 func NewUrlInput(method *method.Method) *UrlInput {
 	ti := textinput.New()
 	ti.Placeholder = urlPlaceholder
+	ti.SetVirtualCursor(true)
 	ti.Focus()
 	ti.CharLimit = 512
-	ti.Width = 60
-	ti.PromptStyle = stylePrompt
-	ti.Cursor.Style = styleCursor
+	ti.SetWidth(60)
+	styles := ti.Styles()
+	styles.Focused.Prompt = stylePrompt
+	styles.Blurred.Prompt = stylePrompt
+	styles.Cursor.Color = lipgloss.Color("15")
+	ti.SetStyles(styles)
 
 	return &UrlInput{
 		method:    method,
