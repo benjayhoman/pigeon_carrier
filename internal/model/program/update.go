@@ -27,5 +27,6 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	urlInputCmd := m.urlInput.Update(msg)
 	methodCmd := m.method.Update(msg)
 	headerCmd := m.headers.Update(msg)
-	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd)
+	resultsCmd := m.results.Update(msg)
+	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd, resultsCmd)
 }

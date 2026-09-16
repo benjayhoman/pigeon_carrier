@@ -13,8 +13,11 @@ var (
 func (m Program) View() string {
 	urlInputView := m.urlInput.View()
 	headersView := m.headers.View()
-	return fmt.Sprintf("%s\n%s\n%s",
+	resultsView := m.results.View()
+
+	return fmt.Sprintf("%s\n%s\n%s%s",
 		urlInputView,
 		headersView,
+		resultsView,
 		styleDim.Render("([Ctrl+Enter] to send, [Ctrl+C] to quit)"))
 }
