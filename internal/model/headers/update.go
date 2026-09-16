@@ -1,6 +1,8 @@
 package headers
 
 import (
+	"slices"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pigeon_carrier/internal/action"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
@@ -16,12 +18,10 @@ func (h *Headers) Update(msg tea.Msg) tea.Cmd {
 		return func() tea.Msg { return updateFocus }
 
 	case action.RemoveHeader:
-		for i, header := range h.headers {
-			if header.Id == msg.Id {
-				h.headers = append(h.headers[:i], h.headers[i+1:]...)
-				break
-			}
-		}
+		h.headers = slices.DeleteFunc(h.headers, func(h headerentry.Entry) bool {
+			return h.Id == msg.Id
+		})
+
 		updateFocus := action.UpdateFocus{Increment: 0}
 		return func() tea.Msg { return updateFocus }
 	}

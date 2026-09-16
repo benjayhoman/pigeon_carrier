@@ -1,11 +1,12 @@
 package headers
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pigeon_carrier/internal/action"
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 type AddNewHeaderOnEnter struct{}

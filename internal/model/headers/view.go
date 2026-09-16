@@ -7,8 +7,6 @@ import (
 )
 
 var (
-	//styleHeaderKey   = lipgloss.NewStyle().Foreground(lipgloss.Color("10")) // Green for header keys
-	//styleHeaderValue = lipgloss.NewStyle().Foreground(lipgloss.Color("11")) // Yellow for header values
 	styleDim = lipgloss.NewStyle().Faint(true)
 )
 
