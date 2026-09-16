@@ -1,20 +1,12 @@
 package headers
 
 import (
-	"github.com/pigeon_carrier/internal/action"
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
-
-type AddNewHeaderOnEnter struct{}
-
-func (a AddNewHeaderOnEnter) Do() tea.Cmd {
-	addNewHeaderAction := action.NewAddHeader()
-	return func() tea.Msg { return addNewHeaderAction }
-}
 
 type Headers struct {
 	headers      []headerentry.Entry
