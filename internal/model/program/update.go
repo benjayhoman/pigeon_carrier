@@ -1,11 +1,9 @@
 package program
 
-import tea "github.com/charmbracelet/bubbletea"
-
-type focusable interface {
-	Focus() tea.Cmd
-	Blur() tea.Cmd
-}
+import (
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/pigeon_carrier/internal/action"
+)
 
 func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
@@ -15,35 +13,19 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 
 		case tea.KeyTab:
-			m.currentFocus = (m.currentFocus + 1) % len(m.focusables())
-			return m.updateFocus()
+			return m.incrementAndSetFocus(-1)
 
 		case tea.KeyShiftTab:
-			m.currentFocus = (m.currentFocus - 1 + len(m.focusables())) % len(m.focusables())
-			return m.updateFocus()
+			return m.incrementAndSetFocus(1)
 		}
+
+	case action.UpdateFocus:
+		return m.incrementAndSetFocus(msg.Increment)
 	}
 
 	urlInputCmd := m.urlInput.Update(msg)
 	methodCmd := m.method.Update(msg)
-	return m, tea.Batch(urlInputCmd, methodCmd)
-}
+	headerCmd := m.headers.Update(msg)
 
-func (m *Program) updateFocus() (tea.Model, tea.Cmd) {
-	var cmd []tea.Cmd
-
-	for i, f := range m.focusables() {
-		if i == m.currentFocus {
-			cmd = append(cmd, f.Focus())
-
-		} else {
-			cmd = append(cmd, f.Blur())
-		}
-	}
-
-	return m, tea.Batch(cmd...)
-}
-
-func (m *Program) focusables() []focusable {
-	return []focusable{m.urlInput, m.method}
+	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd)
 }

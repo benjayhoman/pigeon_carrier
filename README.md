@@ -17,3 +17,9 @@ Response: 200
 
 ([Ctrl+Enter] to send, [Ctrl+C] to quit)
 ```
+
+## Todo
+- Cleanup Program's update function
+- Make AddRemoveBox more generic
+    - rename it to Button
+    - pass in its functionality instead of it being hard coded to add remove headers

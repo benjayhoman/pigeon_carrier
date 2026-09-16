@@ -1,0 +1,37 @@
+package headers
+
+import (
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/pigeon_carrier/internal/action"
+	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
+)
+
+func (h *Headers) Update(msg tea.Msg) tea.Cmd {
+	switch msg := msg.(type) {
+	case action.AddHeader:
+		header := headerentry.NewEntry()
+		h.headers = append(h.headers, header)
+
+		updateFocus := action.UpdateFocus{Increment: 0}
+		return func() tea.Msg { return updateFocus }
+
+	case action.RemoveHeader:
+		for i, header := range h.headers {
+			if header.Id == msg.Id {
+				h.headers = append(h.headers[:i], h.headers[i+1:]...)
+				break
+			}
+		}
+		updateFocus := action.UpdateFocus{Increment: 0}
+		return func() tea.Msg { return updateFocus }
+	}
+
+	addHeaderCmd := h.addNewHeader.Update(msg)
+
+	var cmds = make([]tea.Cmd, 0, len(h.headers)*3)
+	for _, header := range h.headers {
+		cmds = append(cmds, header.Update(msg))
+	}
+
+	return tea.Batch(addHeaderCmd, tea.Batch(cmds...))
+}

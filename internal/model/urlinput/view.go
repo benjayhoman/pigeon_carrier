@@ -30,7 +30,7 @@ func (m UrlInput) View() string {
 	}
 
 	return fmt.Sprintf(
-		"%s %s\n",
+		"%s %s",
 		m.method.View(),
 		inputView,
 	)
