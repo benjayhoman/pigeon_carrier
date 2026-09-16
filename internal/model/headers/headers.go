@@ -33,12 +33,13 @@ func (h Headers) Init() tea.Cmd {
 }
 
 func (h Headers) GetFocusables() []app.Focusable {
-	boxes := make([]app.Focusable, 0, len(h.headers)*3)
+	focusables := make([]app.Focusable, 0, len(h.headers)*3)
+
+	focusables = append(focusables, h.addNewHeader)
 	for _, header := range h.headers {
 		for _, focusable := range header.GetFocusables() {
-			boxes = append(boxes, focusable)
+			focusables = append(focusables, focusable)
 		}
 	}
-	boxes = append(boxes, h.addNewHeader)
-	return boxes
+	return focusables
 }

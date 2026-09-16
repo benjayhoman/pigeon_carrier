@@ -13,10 +13,10 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 
 		case tea.KeyTab:
-			return m.incrementAndSetFocus(-1)
+			return m.incrementAndSetFocus(1)
 
 		case tea.KeyShiftTab:
-			return m.incrementAndSetFocus(1)
+			return m.incrementAndSetFocus(-1)
 		}
 
 	case action.UpdateFocus:

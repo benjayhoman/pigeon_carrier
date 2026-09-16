@@ -36,11 +36,11 @@ func (m Program) Init() tea.Cmd {
 }
 
 func (m *Program) focusables() []app.Focusable {
-	boxes := m.headers.GetFocusables()
-	focusables := make([]app.Focusable, 0, 3+len(boxes))
-	focusables = append(focusables, m.urlInput, m.method)
-	for _, box := range boxes {
-		focusables = append(focusables, box)
+	focusables := make([]app.Focusable, 0)
+	focusables = append(focusables, m.method, m.urlInput)
+
+	for _, focusable := range m.headers.GetFocusables() {
+		focusables = append(focusables, focusable)
 	}
 	return focusables
 }
@@ -53,10 +53,10 @@ func (m *Program) incrementAndSetFocus(increment int) (tea.Model, tea.Cmd) {
 	focusables := m.focusables()
 	length := len(focusables)
 
-	if increment > 0 {
+	if increment >= 0 {
 		m.currentFocus = (m.currentFocus + increment) % length
 
-	} else if increment < 0 {
+	} else {
 		m.currentFocus = (m.currentFocus + increment + length) % length
 	}
 
