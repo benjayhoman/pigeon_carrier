@@ -1,8 +1,9 @@
 package program
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pigeon_carrier/internal/app"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 // returns all focusable elements in the program so that the current focus can be managed

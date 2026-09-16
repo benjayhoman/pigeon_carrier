@@ -1,8 +1,9 @@
 package program
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pigeon_carrier/internal/action"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {

@@ -1,11 +1,12 @@
 package program
 
 import (
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/pigeon_carrier/internal/model/headers"
 	"github.com/pigeon_carrier/internal/model/method"
 	"github.com/pigeon_carrier/internal/model/urlinput"
+
+	"github.com/charmbracelet/bubbles/textinput"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Program struct {
