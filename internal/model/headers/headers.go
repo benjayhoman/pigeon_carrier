@@ -36,3 +36,12 @@ func (h Headers) GetFocusables() []app.Focusable {
 	}
 	return focusables
 }
+
+func (h Headers) GetHeaders() map[string]string {
+	headersMap := make(map[string]string)
+	for _, header := range h.headers {
+		key, value := header.GetKeyValue()
+		headersMap[key] = value
+	}
+	return headersMap
+}

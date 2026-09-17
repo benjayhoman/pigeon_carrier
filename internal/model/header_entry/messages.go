@@ -12,5 +12,5 @@ type HeaderEntryRemoveOnEnter struct {
 
 func (h HeaderEntryRemoveOnEnter) Do() tea.Cmd {
 	removeHeaderAction := action.NewRemoveHeader(h.id)
-	return func() tea.Msg { return removeHeaderAction }
+	return action.NewDefaultMsg(removeHeaderAction)
 }

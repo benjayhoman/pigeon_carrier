@@ -9,5 +9,5 @@ type AddNewHeaderOnEnter struct{}
 
 func (a AddNewHeaderOnEnter) Do() tea.Cmd {
 	addNewHeaderAction := action.NewAddHeader()
-	return func() tea.Msg { return addNewHeaderAction }
+	return action.NewDefaultMsg(addNewHeaderAction)
 }

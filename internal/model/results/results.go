@@ -1,21 +1,47 @@
 package results
 
-import tea "charm.land/bubbletea/v2"
+import (
+	"github.com/pigeon_carrier/internal/app"
+	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
+
+	tea "charm.land/bubbletea/v2"
+)
+
+type ResultState string
+
+const (
+	ResultStateNone       ResultState = ""
+	ResultStateHasResults ResultState = "hasResults"
+	ResultStateIsSending  ResultState = "isSending"
+)
 
 type Results struct {
-	hasResults     bool
-	responseBody   string
-	responseStatus int
+	Body    string
+	Status  int
+	Headers map[string]string
+
+	state              ResultState
+	sendAnimationFrame int
+
+	hideHeaders         bool
+	toggleHeadersButton *addremovebox.AddRemoveBox
 }
 
 func NewResults() *Results {
+	toggleHeaderButton := addremovebox.NewAddRemoveBox("Toggle Headers", ToggleResultHeadersOnEnter{})
 	return &Results{
-		hasResults:     false,
-		responseBody:   "",
-		responseStatus: 0,
+		state:               ResultStateNone,
+		Body:                "",
+		Status:              0,
+		Headers:             nil,
+		toggleHeadersButton: &toggleHeaderButton,
 	}
 }
 
 func (r Results) Init() tea.Cmd {
 	return nil
+}
+
+func (r *Results) GetFocusables() []app.Focusable {
+	return []app.Focusable{r.toggleHeadersButton}
 }

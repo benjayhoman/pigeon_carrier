@@ -14,6 +14,11 @@ func (m *Program) focusables() []app.Focusable {
 	for _, focusable := range m.headers.GetFocusables() {
 		focusables = append(focusables, focusable)
 	}
+
+	for _, focusable := range m.results.GetFocusables() {
+		focusables = append(focusables, focusable)
+	}
+
 	return focusables
 }
 

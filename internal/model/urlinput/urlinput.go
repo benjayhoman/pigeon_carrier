@@ -45,3 +45,7 @@ func NewUrlInput(method *method.Method) *UrlInput {
 		textInput: ti,
 	}
 }
+
+func (m UrlInput) Value() string {
+	return m.textInput.Value()
+}

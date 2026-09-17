@@ -15,7 +15,7 @@ func (h *Headers) Update(msg tea.Msg) tea.Cmd {
 		h.headers = append(h.headers, header)
 
 		updateFocus := action.UpdateFocus{Increment: 0}
-		return func() tea.Msg { return updateFocus }
+		return action.NewDefaultMsg(updateFocus)
 
 	case action.RemoveHeader:
 		h.headers = slices.DeleteFunc(h.headers, func(h headerentry.Entry) bool {
@@ -25,7 +25,7 @@ func (h *Headers) Update(msg tea.Msg) tea.Cmd {
 		updateFocus := action.UpdateFocus{Increment: 0}
 		// Removing a header shrinks the inline view; clear the screen so the
 		// renderer repaints from the top instead of leaving a stale first line.
-		return tea.Batch(tea.ClearScreen, func() tea.Msg { return updateFocus })
+		return tea.Batch(tea.ClearScreen, action.NewDefaultMsg(updateFocus))
 	}
 
 	addHeaderCmd := h.addNewHeader.Update(msg)

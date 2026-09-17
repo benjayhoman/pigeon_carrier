@@ -52,3 +52,7 @@ func newTextInput(placeholder string) textInput {
 func (e Entry) GetFocusables() []app.Focusable {
 	return []app.Focusable{e.removeHeader, e.keyInput, e.valueInput}
 }
+
+func (e Entry) GetKeyValue() (string, string) {
+	return e.keyInput.Value(), e.valueInput.Value()
+}
