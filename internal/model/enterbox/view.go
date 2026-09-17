@@ -1,4 +1,4 @@
-package addremovebox
+package enterbox
 
 import "charm.land/lipgloss/v2"
 
@@ -7,7 +7,7 @@ var (
 	styleRegular = lipgloss.NewStyle()
 )
 
-func (b AddRemoveBox) View() string {
+func (b EnterBox) View() string {
 	style := styleDim
 	if b.focused {
 		style = styleRegular

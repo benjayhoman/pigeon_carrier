@@ -1,10 +1,10 @@
-package addremovebox
+package enterbox
 
 import (
 	tea "charm.land/bubbletea/v2"
 )
 
-func (b *AddRemoveBox) Update(msg tea.Msg) tea.Cmd {
+func (b *EnterBox) Update(msg tea.Msg) tea.Cmd {
 	if !b.focused {
 		return nil
 	}
@@ -22,12 +22,12 @@ func (b *AddRemoveBox) Update(msg tea.Msg) tea.Cmd {
 	return nil
 }
 
-func (b *AddRemoveBox) Focus() tea.Cmd {
+func (b *EnterBox) Focus() tea.Cmd {
 	b.focused = true
 	return nil
 }
 
-func (b *AddRemoveBox) Blur() tea.Cmd {
+func (b *EnterBox) Blur() tea.Cmd {
 	b.focused = false
 	return nil
 }

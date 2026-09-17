@@ -2,7 +2,7 @@ package headers
 
 import (
 	"github.com/pigeon_carrier/internal/app"
-	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
+	addremovebox "github.com/pigeon_carrier/internal/model/enterbox"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
 
 	tea "charm.land/bubbletea/v2"
@@ -10,11 +10,11 @@ import (
 
 type Headers struct {
 	headers      []headerentry.Entry
-	addNewHeader *addremovebox.AddRemoveBox
+	addNewHeader *addremovebox.EnterBox
 }
 
 func NewHeaders() *Headers {
-	addNewHeader := addremovebox.NewAddRemoveBox("+", AddNewHeaderOnEnter{})
+	addNewHeader := addremovebox.NewEnterBox("+", AddNewHeaderOnEnter{})
 	return &Headers{
 		headers:      make([]headerentry.Entry, 0),
 		addNewHeader: &addNewHeader,

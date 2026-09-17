@@ -1,4 +1,4 @@
-package addremovebox
+package enterbox
 
 import tea "charm.land/bubbletea/v2"
 
@@ -6,18 +6,18 @@ type OnEnter interface {
 	Do() tea.Cmd
 }
 
-type AddRemoveBox struct {
+type EnterBox struct {
 	symbol  string
 	focused bool
 	action  OnEnter
 }
 
-func (b AddRemoveBox) Init() tea.Cmd {
+func (b EnterBox) Init() tea.Cmd {
 	return nil
 }
 
-func NewAddRemoveBox(symbol string, action OnEnter) AddRemoveBox {
-	return AddRemoveBox{
+func NewEnterBox(symbol string, action OnEnter) EnterBox {
+	return EnterBox{
 		symbol: symbol,
 		action: action,
 	}

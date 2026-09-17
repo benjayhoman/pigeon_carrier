@@ -2,7 +2,7 @@ package headerentry
 
 import (
 	"github.com/pigeon_carrier/internal/app"
-	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
+	enterbox "github.com/pigeon_carrier/internal/model/enterbox"
 
 	"charm.land/bubbles/v2/textinput"
 	"github.com/google/uuid"
@@ -19,7 +19,7 @@ const (
 
 type Entry struct {
 	Id           uuid.UUID
-	removeHeader *addremovebox.AddRemoveBox
+	removeHeader *enterbox.EnterBox
 	keyInput     *textInput
 	valueInput   *textInput
 }
@@ -27,7 +27,7 @@ type Entry struct {
 func NewEntry() Entry {
 	entryId := uuid.New()
 
-	removeHeaderBox := addremovebox.NewAddRemoveBox("-", HeaderEntryRemoveOnEnter{id: entryId})
+	removeHeaderBox := enterbox.NewEnterBox("-", HeaderEntryRemoveOnEnter{id: entryId})
 	keyInput := newTextInput(keyPlaceholder)
 	valueInput := newTextInput(valuePlaceholder)
 

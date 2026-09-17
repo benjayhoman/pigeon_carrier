@@ -2,7 +2,7 @@ package results
 
 import (
 	"github.com/pigeon_carrier/internal/app"
-	addremovebox "github.com/pigeon_carrier/internal/model/add_remove_box"
+	addremovebox "github.com/pigeon_carrier/internal/model/enterbox"
 
 	tea "charm.land/bubbletea/v2"
 )
@@ -24,11 +24,11 @@ type Results struct {
 	sendAnimationFrame int
 
 	hideHeaders         bool
-	toggleHeadersButton *addremovebox.AddRemoveBox
+	toggleHeadersButton *addremovebox.EnterBox
 }
 
 func NewResults() *Results {
-	toggleHeaderButton := addremovebox.NewAddRemoveBox("Toggle Headers", ToggleResultHeadersOnEnter{})
+	toggleHeaderButton := addremovebox.NewEnterBox("Toggle Headers", ToggleResultHeadersOnEnter{})
 	return &Results{
 		state:               ResultStateNone,
 		Body:                "",
