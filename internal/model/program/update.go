@@ -11,7 +11,7 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyPressMsg:
 		switch msg.String() {
-		case "ctrl+c", "esc":
+		case "ctrl+q", "esc":
 			return m, tea.Quit
 
 		case "tab":
@@ -37,5 +37,5 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	methodCmd := m.method.Update(msg)
 	headerCmd := m.headers.Update(msg)
 	resultsCmd := m.results.Update(msg)
-	return m, tea.Batch(tea.ClearScreen, urlInputCmd, methodCmd, headerCmd, resultsCmd)
+	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd, resultsCmd)
 }

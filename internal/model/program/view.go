@@ -20,6 +20,7 @@ func (m Program) View() tea.View {
 		urlInputView,
 		headersView,
 		resultsView,
-		styleDim.Render("([Ctrl+s] to send, [Ctrl+C] to quit)")))
+		styleDim.Render("([Ctrl+s] to send, [Ctrl+q] to quit)")))
+	view.AltScreen = true
 	return view
 }

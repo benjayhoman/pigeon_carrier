@@ -1,6 +1,8 @@
 package headerentry
 
 import (
+	"github.com/pigeon_carrier/internal/model/common"
+
 	"charm.land/bubbles/v2/textinput"
 	tea "charm.land/bubbletea/v2"
 )
@@ -19,6 +21,10 @@ func (t *textInput) Blur() tea.Cmd {
 }
 
 func (t *textInput) Update(msg tea.Msg) tea.Cmd {
+	if !t.Model.Focused() {
+		return nil
+	}
+
 	textLength := len(t.Model.Value())
 
 	if textLength < MinWidth {
@@ -31,7 +37,9 @@ func (t *textInput) Update(msg tea.Msg) tea.Cmd {
 		t.Model.SetWidth(textLength + 1)
 	}
 
+	copyPasteCmd := common.HandleCopyAndPaste(msg, &t.Model)
+
 	m, cmd := t.Model.Update(msg)
 	t.Model = m
-	return cmd
+	return tea.Batch(copyPasteCmd, cmd)
 }
