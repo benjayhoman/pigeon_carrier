@@ -16,22 +16,12 @@ var (
 )
 
 func (r Results) View() string {
-	switch r.state {
-	case ResultStateNone:
-		return ""
-
-	case ResultStateIsSending:
-		return fmt.Sprintf("%s %s \n\n", "", sendAnimation[r.sendAnimationFrame])
-
-	case ResultStateHasResults:
-		return fmt.Sprintf("%s %s %s\n%s\n%s\n",
-			styleDim.Render("Response:"),
-			styleStatus(fmt.Sprintf("%d", r.Status)),
-			r.toggleHeadersButton.View(),
-			r.styleHeaders(r.Headers),
-			r.body.View())
-	}
-	return ""
+	return fmt.Sprintf("%s %s %s\n%s\n%s\n",
+		styleDim.Render("Response:"),
+		styleStatus(fmt.Sprintf("%d", r.Status)),
+		r.toggleHeadersButton.View(),
+		r.styleHeaders(r.Headers),
+		r.body.View())
 }
 
 func (r Results) styleHeaders(headers map[string]string) string {

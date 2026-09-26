@@ -21,6 +21,8 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.incrementAndSetFocus(-1)
 
 		case "ctrl+s":
+			m.resultState = ResultStateIsSending
+
 			url := m.urlInput.Value()
 			headers := m.headers.GetHeaders()
 			return m, tea.Batch(action.NewDefaultMsg(action.UpdateSending{}),
@@ -31,11 +33,15 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case action.UpdateFocus:
 		return m.incrementAndSetFocus(msg.Increment)
+
+	case action.UpdateResults:
+		m.resultState = ResultStateHasResults
 	}
 
 	urlInputCmd := m.urlInput.Update(msg)
 	methodCmd := m.method.Update(msg)
 	headerCmd := m.headers.Update(msg)
 	resultsCmd := m.results.Update(msg)
-	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd, resultsCmd)
+	sendingCmd := m.sending.Update(msg)
+	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd, resultsCmd, sendingCmd)
 }

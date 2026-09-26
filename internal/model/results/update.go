@@ -2,39 +2,12 @@ package results
 
 import (
 	"encoding/json"
-	"strings"
-	"time"
 
 	"github.com/pigeon_carrier/internal/action"
 
 	tea "charm.land/bubbletea/v2"
 	"github.com/tidwall/pretty"
 )
-
-var (
-	sendAnimation = []string{
-		"====>",
-		" ====>",
-		"  ====>",
-		"   ====>",
-		"    ====>",
-		"     ====>",
-		"      ====>",
-		"       ====>",
-		"        ====>",
-		"        <====",
-		"       <====",
-		"      <====",
-		"     <====",
-		"    <====",
-		"   <====",
-		"  <====",
-		" <====",
-		"<====",
-	}
-)
-
-type tickMsg time.Time
 
 func (r *Results) Update(msg tea.Msg) tea.Cmd {
 	switch msg := msg.(type) {
@@ -46,16 +19,15 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 		jsonBody, err := formatBodyAsJson(msg.Body)
 		if err != nil {
 			r.body.SetContent(msg.Body)
-			r.body.SetHeight(250)
+			r.body.SetHeight(20)
 
 		} else {
 			r.body.SetContent(jsonBody)
-			r.body.SetHeight(strings.Count(jsonBody, "\n") + 1)
+			r.body.SetHeight(20)
 		}
 		r.Status = msg.StatusCode
 		r.Headers = msg.Headers
 		r.hideHeaders = true
-		r.state = ResultStateHasResults
 		return nil
 
 	case action.ToggleResultHeaders:
@@ -66,32 +38,11 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 			r.toggleHeadersButton.SetSymbol("Hide Headers")
 		}
 		return nil
-
-	case action.UpdateSending:
-		r.state = ResultStateIsSending
-		return tick()
-
-	case tickMsg:
-		if r.state != ResultStateIsSending {
-			r.sendAnimationFrame = 0
-			return nil
-		}
-		r.sendAnimationFrame++
-		if r.sendAnimationFrame >= len(sendAnimation) {
-			r.sendAnimationFrame = 0
-		}
-		return tick()
 	}
 
 	var cmd tea.Cmd
 	r.body, cmd = r.body.Update(msg)
 	return tea.Batch(cmd, r.toggleHeadersButton.Update(msg))
-}
-
-func tick() tea.Cmd {
-	return tea.Tick(time.Second/24, func(t time.Time) tea.Msg {
-		return tickMsg(t)
-	})
 }
 
 func formatBodyAsJson(body string) (string, error) {

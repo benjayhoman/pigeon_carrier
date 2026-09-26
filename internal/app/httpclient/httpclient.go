@@ -13,6 +13,9 @@ import (
 func CallHttp(url string, headers map[string]string) action.UpdateResults {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error { // do not follow redirects
+			return http.ErrUseLastResponse
+		},
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)

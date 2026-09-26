@@ -9,21 +9,10 @@ import (
 	tea "charm.land/bubbletea/v2"
 )
 
-type ResultState string
-
-const (
-	ResultStateNone       ResultState = ""
-	ResultStateHasResults ResultState = "hasResults"
-	ResultStateIsSending  ResultState = "isSending"
-)
-
 type Results struct {
 	log     zerolog.Logger
 	Status  int
 	Headers map[string]string
-
-	state              ResultState
-	sendAnimationFrame int
 
 	hideHeaders         bool
 	toggleHeadersButton *addremovebox.EnterBox
@@ -45,7 +34,6 @@ func NewResults(logger zerolog.Logger) *Results {
 	toggleHeaderButton := addremovebox.NewEnterBox(resultsLogger, "Show Headers", ToggleResultHeadersOnEnter{})
 	return &Results{
 		log:                 resultsLogger,
-		state:               ResultStateNone,
 		Status:              0,
 		Headers:             nil,
 		hideHeaders:         true,
