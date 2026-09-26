@@ -25,9 +25,11 @@ func main() {
 
 	p := tea.NewProgram(program.NewProgram(logger))
 	if _, err := p.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error running program: %v\n", err)
+		log.Error().Err(err).Msg("Error running program")
 		os.Exit(1)
 	}
+
+	log.Info().Msg("Program exited successfully")
 }
 
 func newLogger(logPath string) (zerolog.Logger, error) {

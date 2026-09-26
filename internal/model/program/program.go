@@ -53,6 +53,8 @@ func NewProgram(logger zerolog.Logger) Program {
 		resultState:  ResultStateNone,
 	}
 	program.setFocus() // set initial focus to the first focusable element
+
+	program.log.Debug().Msg("Program initialized")
 	return program
 }
 
