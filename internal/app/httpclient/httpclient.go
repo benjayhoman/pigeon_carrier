@@ -10,7 +10,13 @@ import (
 	"github.com/pigeon_carrier/internal/action"
 )
 
-func CallHttp(url string, headers map[string]string) action.UpdateResults {
+type HttpClient struct{}
+
+func NewHttpClient() HttpClient {
+	return HttpClient{}
+}
+
+func (c HttpClient) CallHttp(url string, headers map[string]string) action.UpdateResults {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error { // do not follow redirects

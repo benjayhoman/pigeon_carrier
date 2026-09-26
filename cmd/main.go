@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/pigeon_carrier/internal/app/httpclient"
 	"github.com/pigeon_carrier/internal/model/program"
 
 	tea "charm.land/bubbletea/v2"
@@ -23,7 +24,7 @@ func main() {
 
 	log.Info().Msg("Logger initialized")
 
-	p := tea.NewProgram(program.NewProgram(logger))
+	p := tea.NewProgram(program.NewProgram(logger, httpclient.NewHttpClient()))
 	if _, err := p.Run(); err != nil {
 		log.Error().Err(err).Msg("Error running program")
 		os.Exit(1)

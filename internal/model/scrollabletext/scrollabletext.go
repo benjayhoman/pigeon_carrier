@@ -9,6 +9,10 @@ import (
 	"github.com/rs/zerolog"
 )
 
+const (
+	maxHeight = 20
+)
+
 type ScrollableText struct {
 	log      zerolog.Logger
 	viewport viewport.Model
@@ -25,7 +29,7 @@ func NewScrollableText(log zerolog.Logger) ScrollableText {
 func NewTextArea() viewport.Model {
 	ta := viewport.New(
 		viewport.WithWidth(20),
-		viewport.WithHeight(20),
+		viewport.WithHeight(0),
 	)
 	return ta
 }
@@ -35,21 +39,26 @@ func (r ScrollableText) Init() tea.Cmd {
 }
 
 func (r *ScrollableText) SetContent(content string) {
-	r.viewport.SetContent(prependLineNumbers(content))
+	contentWithLineNumbers, numberOfLines := prependLineNumbers(content)
+	r.viewport.SetContent(contentWithLineNumbers)
+	r.setHeight(numberOfLines)
 }
 
 func (r *ScrollableText) SetWidth(width int) {
 	r.viewport.SetWidth(width)
 }
 
-func (r *ScrollableText) SetHeight(height int) {
+func (r *ScrollableText) setHeight(height int) {
+	if height > maxHeight {
+		height = maxHeight
+	}
 	r.viewport.SetHeight(height)
 }
 
-func prependLineNumbers(content string) string {
+func prependLineNumbers(content string) (string, int) {
 	lines := strings.Split(content, "\n")
 	for i, line := range lines {
 		lines[i] = fmt.Sprintf("%4d | %s", i+1, line)
 	}
-	return strings.Join(lines, "\n")
+	return strings.Join(lines, "\n"), len(lines)
 }

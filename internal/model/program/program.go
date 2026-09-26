@@ -1,6 +1,7 @@
 package program
 
 import (
+	"github.com/pigeon_carrier/internal/action"
 	"github.com/pigeon_carrier/internal/model/headers"
 	"github.com/pigeon_carrier/internal/model/method"
 	"github.com/pigeon_carrier/internal/model/results"
@@ -20,6 +21,10 @@ const (
 	ResultStateIsSending  ResultState = "isSending"
 )
 
+type HttpClient interface {
+	CallHttp(url string, headers map[string]string) action.UpdateResults
+}
+
 type Program struct {
 	log          zerolog.Logger
 	currentFocus int
@@ -31,9 +36,11 @@ type Program struct {
 	sending     *sending.Sending
 	results     *results.Results
 	resultState ResultState
+
+	httpClient HttpClient
 }
 
-func NewProgram(logger zerolog.Logger) Program {
+func NewProgram(logger zerolog.Logger, httpClient HttpClient) Program {
 	programLogger := logger.With().Str("module", "program").Logger()
 
 	method := method.NewMethod(programLogger)
@@ -51,6 +58,7 @@ func NewProgram(logger zerolog.Logger) Program {
 		sending:      sending,
 		results:      results,
 		resultState:  ResultStateNone,
+		httpClient:   httpClient,
 	}
 	program.setFocus() // set initial focus to the first focusable element
 

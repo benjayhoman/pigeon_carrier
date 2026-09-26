@@ -19,11 +19,9 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 		jsonBody, err := formatBodyAsJson(msg.Body)
 		if err != nil {
 			r.body.SetContent(msg.Body)
-			r.body.SetHeight(20)
 
 		} else {
 			r.body.SetContent(jsonBody)
-			r.body.SetHeight(20)
 		}
 		r.Status = msg.StatusCode
 		r.Headers = msg.Headers
