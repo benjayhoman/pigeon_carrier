@@ -1,6 +1,7 @@
 package results
 
 import (
+	"charm.land/bubbles/v2/viewport"
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/enterbox"
 
@@ -16,7 +17,6 @@ const (
 )
 
 type Results struct {
-	Body    string
 	Status  int
 	Headers map[string]string
 
@@ -25,16 +25,27 @@ type Results struct {
 
 	hideHeaders         bool
 	toggleHeadersButton *addremovebox.EnterBox
+
+	body viewport.Model
+}
+
+func NewTextArea() viewport.Model {
+	ta := viewport.New(
+		viewport.WithWidth(80),
+		viewport.WithHeight(8),
+	)
+	return ta
 }
 
 func NewResults() *Results {
-	toggleHeaderButton := addremovebox.NewEnterBox("Toggle Headers", ToggleResultHeadersOnEnter{})
+	toggleHeaderButton := addremovebox.NewEnterBox("Show Headers", ToggleResultHeadersOnEnter{})
 	return &Results{
 		state:               ResultStateNone,
-		Body:                "",
 		Status:              0,
 		Headers:             nil,
+		hideHeaders:         true,
 		toggleHeadersButton: &toggleHeaderButton,
+		body:                NewTextArea(),
 	}
 }
 

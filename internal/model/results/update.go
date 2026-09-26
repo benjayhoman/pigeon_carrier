@@ -2,6 +2,7 @@ package results
 
 import (
 	"encoding/json"
+	"strings"
 	"time"
 
 	"github.com/pigeon_carrier/internal/action"
@@ -37,22 +38,33 @@ type tickMsg time.Time
 
 func (r *Results) Update(msg tea.Msg) tea.Cmd {
 	switch msg := msg.(type) {
+	case tea.WindowSizeMsg:
+		r.body.SetWidth(msg.Width)
+		return nil
+
 	case action.UpdateResults:
 		jsonBody, err := formatBodyAsJson(msg.Body)
 		if err != nil {
-			r.Body = msg.Body
+			r.body.SetContent(msg.Body)
+			r.body.SetHeight(strings.Count(msg.Body, "\n") + 1)
 
 		} else {
-			r.Body = jsonBody
+			r.body.SetContent(jsonBody)
+			r.body.SetHeight(strings.Count(jsonBody, "\n") + 1)
 		}
 		r.Status = msg.StatusCode
 		r.Headers = msg.Headers
-		r.hideHeaders = false
+		r.hideHeaders = true
 		r.state = ResultStateHasResults
 		return nil
 
 	case action.ToggleResultHeaders:
 		r.hideHeaders = !r.hideHeaders
+		if r.hideHeaders {
+			r.toggleHeadersButton.SetSymbol("Show Headers")
+		} else {
+			r.toggleHeadersButton.SetSymbol("Hide Headers")
+		}
 		return nil
 
 	case action.UpdateSending:
@@ -71,7 +83,9 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 		return tick()
 	}
 
-	return tea.Batch(r.toggleHeadersButton.Update(msg))
+	var cmd tea.Cmd
+	r.body, cmd = r.body.Update(msg)
+	return tea.Batch(cmd, r.toggleHeadersButton.Update(msg))
 }
 
 func tick() tea.Cmd {

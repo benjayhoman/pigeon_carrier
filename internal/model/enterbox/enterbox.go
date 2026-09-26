@@ -22,3 +22,7 @@ func NewEnterBox(symbol string, action OnEnter) EnterBox {
 		action: action,
 	}
 }
+
+func (b *EnterBox) SetSymbol(symbol string) {
+	b.symbol = symbol
+}

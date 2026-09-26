@@ -13,7 +13,6 @@ var (
 	green    = lipgloss.NewStyle().Foreground(lipgloss.Color("2")) // Green for success
 	blue     = lipgloss.NewStyle().Foreground(lipgloss.Color("4")) // Blue for informational
 	red      = lipgloss.NewStyle().Foreground(lipgloss.Color("1")) // Red for errors
-	wrapText = lipgloss.NewStyle().Width(80)
 )
 
 func (r Results) View() string {
@@ -25,12 +24,12 @@ func (r Results) View() string {
 		return fmt.Sprintf("%s %s \n\n", "", sendAnimation[r.sendAnimationFrame])
 
 	case ResultStateHasResults:
-		return fmt.Sprintf("%s %s %s\n%s\n%s\n\n",
+		return fmt.Sprintf("%s %s %s\n%s\n%s\n",
 			styleDim.Render("Response:"),
 			styleStatus(fmt.Sprintf("%d", r.Status)),
 			r.toggleHeadersButton.View(),
 			r.styleHeaders(r.Headers),
-			wrapText.Render(r.Body))
+			r.body.View())
 	}
 	return ""
 }
