@@ -4,18 +4,22 @@ import (
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/enterbox"
 	headerentry "github.com/pigeon_carrier/internal/model/header_entry"
+	"github.com/rs/zerolog"
 
 	tea "charm.land/bubbletea/v2"
 )
 
 type Headers struct {
+	log          zerolog.Logger
 	headers      []headerentry.Entry
 	addNewHeader *addremovebox.EnterBox
 }
 
-func NewHeaders() *Headers {
-	addNewHeader := addremovebox.NewEnterBox("+", AddNewHeaderOnEnter{})
+func NewHeaders(logger zerolog.Logger) *Headers {
+	headersLogger := logger.With().Str("module", "headers").Logger()
+	addNewHeader := addremovebox.NewEnterBox(headersLogger, "+", AddNewHeaderOnEnter{})
 	return &Headers{
+		log:          headersLogger,
 		headers:      make([]headerentry.Entry, 0),
 		addNewHeader: &addNewHeader,
 	}

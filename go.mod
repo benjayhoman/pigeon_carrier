@@ -12,7 +12,10 @@ require (
 	github.com/charmbracelet/ultraviolet v0.0.0-20260811164956-006e29f97886 // indirect
 	github.com/charmbracelet/x/termios v0.1.1 // indirect
 	github.com/charmbracelet/x/windows v0.2.2 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
+	github.com/rs/zerolog v1.35.1 // indirect
 	golang.org/x/sync v0.22.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
 
 require (

@@ -11,7 +11,7 @@ import (
 func (h *Headers) Update(msg tea.Msg) tea.Cmd {
 	switch msg := msg.(type) {
 	case action.AddHeader:
-		header := headerentry.NewEntry()
+		header := headerentry.NewEntry(h.log)
 		h.headers = append(h.headers, header)
 
 		updateFocus := action.UpdateFocus{Increment: 0}

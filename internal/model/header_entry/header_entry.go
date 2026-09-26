@@ -3,6 +3,7 @@ package headerentry
 import (
 	"github.com/pigeon_carrier/internal/app"
 	enterbox "github.com/pigeon_carrier/internal/model/enterbox"
+	"github.com/rs/zerolog"
 
 	"charm.land/bubbles/v2/textinput"
 	"github.com/google/uuid"
@@ -18,20 +19,23 @@ const (
 )
 
 type Entry struct {
+	log          zerolog.Logger
 	Id           uuid.UUID
 	removeHeader *enterbox.EnterBox
 	keyInput     *textInput
 	valueInput   *textInput
 }
 
-func NewEntry() Entry {
+func NewEntry(logger zerolog.Logger) Entry {
 	entryId := uuid.New()
+	entryLogger := logger.With().Str("module", "header_entry").Logger()
 
-	removeHeaderBox := enterbox.NewEnterBox("-", HeaderEntryRemoveOnEnter{id: entryId})
+	removeHeaderBox := enterbox.NewEnterBox(entryLogger, "-", HeaderEntryRemoveOnEnter{id: entryId})
 	keyInput := newTextInput(keyPlaceholder)
 	valueInput := newTextInput(valuePlaceholder)
 
 	return Entry{
+		log:          entryLogger,
 		Id:           entryId,
 		removeHeader: &removeHeaderBox,
 		keyInput:     &keyInput,

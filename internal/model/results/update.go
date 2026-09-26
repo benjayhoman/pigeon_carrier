@@ -46,7 +46,7 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 		jsonBody, err := formatBodyAsJson(msg.Body)
 		if err != nil {
 			r.body.SetContent(msg.Body)
-			r.body.SetHeight(strings.Count(msg.Body, "\n") + 1)
+			r.body.SetHeight(250)
 
 		} else {
 			r.body.SetContent(jsonBody)

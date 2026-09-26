@@ -1,6 +1,9 @@
 package method
 
-import tea "charm.land/bubbletea/v2"
+import (
+	tea "charm.land/bubbletea/v2"
+	"github.com/rs/zerolog"
+)
 
 type MethodType string
 
@@ -18,6 +21,7 @@ var (
 )
 
 type Method struct {
+	log      zerolog.Logger
 	selected int
 	focused  bool
 }
@@ -26,9 +30,11 @@ func (m Method) Init() tea.Cmd {
 	return nil
 }
 
-func NewMethod() *Method {
+func NewMethod(logger zerolog.Logger) *Method {
 	return &Method{
+		log:      logger.With().Str("module", "method").Logger(),
 		selected: 0,
+		focused:  false,
 	}
 }
 

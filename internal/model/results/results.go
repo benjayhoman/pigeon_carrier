@@ -4,6 +4,7 @@ import (
 	"charm.land/bubbles/v2/viewport"
 	"github.com/pigeon_carrier/internal/app"
 	addremovebox "github.com/pigeon_carrier/internal/model/enterbox"
+	"github.com/rs/zerolog"
 
 	tea "charm.land/bubbletea/v2"
 )
@@ -17,6 +18,7 @@ const (
 )
 
 type Results struct {
+	log     zerolog.Logger
 	Status  int
 	Headers map[string]string
 
@@ -37,9 +39,12 @@ func NewTextArea() viewport.Model {
 	return ta
 }
 
-func NewResults() *Results {
-	toggleHeaderButton := addremovebox.NewEnterBox("Show Headers", ToggleResultHeadersOnEnter{})
+func NewResults(logger zerolog.Logger) *Results {
+	resultsLogger := logger.With().Str("module", "results").Logger()
+
+	toggleHeaderButton := addremovebox.NewEnterBox(resultsLogger, "Show Headers", ToggleResultHeadersOnEnter{})
 	return &Results{
+		log:                 resultsLogger,
 		state:               ResultStateNone,
 		Status:              0,
 		Headers:             nil,

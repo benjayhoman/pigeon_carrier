@@ -1,11 +1,11 @@
 package urlinput
 
 import (
-	"github.com/pigeon_carrier/internal/model/method"
-
 	"charm.land/bubbles/v2/textinput"
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
+	"github.com/pigeon_carrier/internal/model/method"
+	"github.com/rs/zerolog"
 )
 
 const (
@@ -18,6 +18,7 @@ var (
 )
 
 type UrlInput struct {
+	log       zerolog.Logger
 	method    *method.Method
 	textInput textinput.Model
 	focused   bool
@@ -27,7 +28,7 @@ func (m UrlInput) Init() tea.Cmd {
 	return nil
 }
 
-func NewUrlInput(method *method.Method) *UrlInput {
+func NewUrlInput(logger zerolog.Logger, method *method.Method) *UrlInput {
 	ti := textinput.New()
 	ti.Placeholder = urlPlaceholder
 	ti.SetVirtualCursor(true)
@@ -41,8 +42,10 @@ func NewUrlInput(method *method.Method) *UrlInput {
 	ti.SetStyles(styles)
 
 	return &UrlInput{
+		log:       logger.With().Str("module", "urlinput").Logger(),
 		method:    method,
 		textInput: ti,
+		focused:   false,
 	}
 }
 
