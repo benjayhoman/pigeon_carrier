@@ -41,7 +41,7 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 	}
 
 	var cmd tea.Cmd
-	r.body, cmd = r.body.Update(msg)
+	cmd = r.body.Update(msg)
 	return tea.Batch(cmd, r.toggleHeadersButton.Update(msg))
 }
 
