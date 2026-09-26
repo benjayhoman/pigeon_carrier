@@ -1,6 +1,9 @@
 package scrollabletext
 
 import (
+	"fmt"
+	"strings"
+
 	"charm.land/bubbles/v2/viewport"
 	tea "charm.land/bubbletea/v2"
 	"github.com/rs/zerolog"
@@ -32,7 +35,7 @@ func (r ScrollableText) Init() tea.Cmd {
 }
 
 func (r *ScrollableText) SetContent(content string) {
-	r.viewport.SetContent(content)
+	r.viewport.SetContent(prependLineNumbers(content))
 }
 
 func (r *ScrollableText) SetWidth(width int) {
@@ -41,4 +44,12 @@ func (r *ScrollableText) SetWidth(width int) {
 
 func (r *ScrollableText) SetHeight(height int) {
 	r.viewport.SetHeight(height)
+}
+
+func prependLineNumbers(content string) string {
+	lines := strings.Split(content, "\n")
+	for i, line := range lines {
+		lines[i] = fmt.Sprintf("%4d | %s", i+1, line)
+	}
+	return strings.Join(lines, "\n")
 }

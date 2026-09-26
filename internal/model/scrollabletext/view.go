@@ -1,6 +1,8 @@
 package scrollabletext
 
-import "github.com/charmbracelet/lipgloss"
+import (
+	"github.com/charmbracelet/lipgloss"
+)
 
 var (
 	styleDim    = lipgloss.NewStyle().Faint(true) // Dim for other protocols

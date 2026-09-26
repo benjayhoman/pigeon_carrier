@@ -16,7 +16,7 @@ var (
 )
 
 func (r Results) View() string {
-	return fmt.Sprintf("%s %s %s\n%s\n%s\n",
+	return fmt.Sprintf("%s %s %s\n%s\n%s\n\n",
 		styleDim.Render("Response:"),
 		styleStatus(fmt.Sprintf("%d", r.Status)),
 		r.toggleHeadersButton.View(),
