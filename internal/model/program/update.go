@@ -22,8 +22,8 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+s":
 			m.resultState = ResultStateIsSending
 
-			url := m.urlInput.Value()
-			headers := m.headers.GetHeaders()
+			url := m.request.GetURL()
+			headers := m.request.GetHeaders()
 			return m, tea.Batch(action.NewDefaultMsg(action.UpdateSending{}),
 				func() tea.Msg {
 					return m.httpClient.CallHttp(url, headers)
@@ -37,10 +37,12 @@ func (m Program) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.resultState = ResultStateHasResults
 	}
 
-	urlInputCmd := m.urlInput.Update(msg)
-	methodCmd := m.method.Update(msg)
-	headerCmd := m.headers.Update(msg)
+	sendTabCmd := m.sendTab.Update(msg)
+	loadTabCmd := m.loadTab.Update(msg)
+	envTabCmd := m.envTab.Update(msg)
+
+	requestCmd := m.request.Update(msg)
 	resultsCmd := m.results.Update(msg)
 	sendingCmd := m.sending.Update(msg)
-	return m, tea.Batch(urlInputCmd, methodCmd, headerCmd, resultsCmd, sendingCmd)
+	return m, tea.Batch(sendTabCmd, loadTabCmd, envTabCmd, requestCmd, resultsCmd, sendingCmd)
 }

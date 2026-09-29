@@ -2,11 +2,10 @@ package program
 
 import (
 	"github.com/pigeon_carrier/internal/action"
-	"github.com/pigeon_carrier/internal/model/headers"
-	"github.com/pigeon_carrier/internal/model/method"
+	"github.com/pigeon_carrier/internal/model/enterbox"
+	"github.com/pigeon_carrier/internal/model/request"
 	"github.com/pigeon_carrier/internal/model/results"
 	"github.com/pigeon_carrier/internal/model/sending"
-	"github.com/pigeon_carrier/internal/model/urlinput"
 
 	"charm.land/bubbles/v2/textinput"
 	tea "charm.land/bubbletea/v2"
@@ -29,9 +28,11 @@ type Program struct {
 	log          zerolog.Logger
 	currentFocus int
 
-	urlInput *urlinput.UrlInput
-	method   *method.Method
-	headers  *headers.Headers
+	sendTab *enterbox.EnterBox
+	loadTab *enterbox.EnterBox
+	envTab  *enterbox.EnterBox
+
+	request *request.Request
 
 	sending     *sending.Sending
 	results     *results.Results
@@ -43,18 +44,22 @@ type Program struct {
 func NewProgram(logger zerolog.Logger, httpClient HttpClient) Program {
 	programLogger := logger.With().Str("module", "program").Logger()
 
-	method := method.NewMethod(programLogger)
-	urlInput := urlinput.NewUrlInput(programLogger, method)
-	headers := headers.NewHeaders(programLogger)
+	sendTab := enterbox.NewEnterBox(programLogger, "Send", nil)
+	loadTab := enterbox.NewEnterBox(programLogger, "Load", nil)
+	envTab := enterbox.NewEnterBox(programLogger, "Env", nil)
+
+	request := request.NewRequest(programLogger)
+
 	sending := sending.NewSending(programLogger)
 	results := results.NewResults(programLogger)
 
 	program := Program{
 		log:          programLogger,
 		currentFocus: 0,
-		method:       method,
-		urlInput:     urlInput,
-		headers:      headers,
+		sendTab:      &sendTab,
+		loadTab:      &loadTab,
+		envTab:       &envTab,
+		request:      request,
 		sending:      sending,
 		results:      results,
 		resultState:  ResultStateNone,

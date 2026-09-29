@@ -58,7 +58,7 @@ func (r *ScrollableText) setHeight(height int) {
 func prependLineNumbers(content string) (string, int) {
 	lines := strings.Split(content, "\n")
 	for i, line := range lines {
-		lines[i] = fmt.Sprintf("%4d | %s", i+1, line)
+		lines[i] = fmt.Sprintf("%3d %s", i+1, line)
 	}
 	return strings.Join(lines, "\n"), len(lines)
 }

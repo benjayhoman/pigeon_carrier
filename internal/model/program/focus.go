@@ -8,10 +8,9 @@ import (
 
 // returns all focusable elements in the program so that the current focus can be managed
 func (m *Program) focusables() []app.Focusable {
-	focusables := make([]app.Focusable, 0, 3) // initial capacity for method, urlInput, and add header
-	focusables = append(focusables, m.method, m.urlInput)
-
-	for _, focusable := range m.headers.GetFocusables() {
+	focusables := make([]app.Focusable, 0, 20) // set higher capacity for efficient appends
+	focusables = append(focusables, m.sendTab, m.loadTab, m.envTab)
+	for _, focusable := range m.request.GetFocusables() {
 		focusables = append(focusables, focusable)
 	}
 
