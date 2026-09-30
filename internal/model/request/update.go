@@ -23,8 +23,9 @@ func (r *Request) Update(msg tea.Msg) tea.Cmd {
 	saveButtonCmd := r.saveButton.Update(msg)
 	envButtonCmd := r.envButton.Update(msg)
 	urlInputCmd := r.urlInput.Update(msg)
+	configCmd := r.config.Update(msg)
 	headerCmd := r.headers.Update(msg)
 	showBodyButtonCmd := r.showBodyButton.Update(msg)
 	requestBodyCmd := r.requestBody.Update(msg)
-	return tea.Batch(urlInputCmd, headerCmd, requestBodyCmd, saveButtonCmd, envButtonCmd, showBodyButtonCmd)
+	return tea.Batch(urlInputCmd, configCmd, headerCmd, requestBodyCmd, saveButtonCmd, envButtonCmd, showBodyButtonCmd)
 }

@@ -2,6 +2,7 @@ package request
 
 import (
 	"github.com/pigeon_carrier/internal/app"
+	"github.com/pigeon_carrier/internal/model/config"
 	"github.com/pigeon_carrier/internal/model/enterbox"
 	"github.com/pigeon_carrier/internal/model/headers"
 	"github.com/pigeon_carrier/internal/model/textfield"
@@ -22,6 +23,8 @@ type Request struct {
 	showRequestBody bool
 	requestBody     *textfield.TextField
 
+	config *config.Config
+
 	width int
 }
 
@@ -38,6 +41,7 @@ func NewRequest(logger zerolog.Logger) *Request {
 		showBodyButton:  &showBodyButton,
 		showRequestBody: false,
 		requestBody:     textfield.NewTextField(),
+		config:          config.NewConfig(logger),
 	}
 }
 
@@ -58,6 +62,7 @@ func (r Request) GetFocusables() []app.Focusable {
 	focusables = append(focusables, r.saveButton)
 	focusables = append(focusables, r.envButton)
 	focusables = append(focusables, r.urlInput.GetFocusables()...)
+	focusables = append(focusables, r.config.GetFocusables()...)
 	focusables = append(focusables, r.headers.GetFocusables()...)
 	focusables = append(focusables, r.showBodyButton)
 	focusables = append(focusables, r.requestBody)

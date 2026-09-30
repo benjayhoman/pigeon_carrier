@@ -10,11 +10,12 @@ const (
 )
 
 func (r Request) View() string {
-	return fmt.Sprintf("Request: %s %s \n%s\n  %s\n  %s  Body: %s\n%s",
+	return fmt.Sprintf("Request: %s %s \n  %s\n%s\n  %s\n  %s  Body: %s\n%s",
 		r.saveButton.View(),
 		r.envButton.View(),
 		strings.Repeat(line, r.width),
 		r.urlInput.View(),
+		r.config.View(),
 		r.headers.View(),
 		r.showBodyButton.View(),
 		r.resolveRequestBodyView())
