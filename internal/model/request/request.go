@@ -15,9 +15,12 @@ type Request struct {
 	saveButton *enterbox.EnterBox
 	envButton  *enterbox.EnterBox
 
-	urlInput    *urlinput.UrlInput
-	headers     *headers.Headers
-	requestBody *textfield.TextField
+	urlInput *urlinput.UrlInput
+	headers  *headers.Headers
+
+	showBodyButton  *enterbox.EnterBox
+	showRequestBody bool
+	requestBody     *textfield.TextField
 
 	width int
 }
@@ -25,13 +28,16 @@ type Request struct {
 func NewRequest(logger zerolog.Logger) *Request {
 	saveButton := enterbox.NewEnterBox(logger, "Save", nil)
 	envButton := enterbox.NewEnterBox(logger, "Default Env", nil)
+	showBodyButton := enterbox.NewEnterBox(logger, "+", ToggleRequestBodyOnEnter{})
 
 	return &Request{
-		urlInput:    urlinput.NewUrlInput(logger),
-		headers:     headers.NewHeaders(logger),
-		saveButton:  &saveButton,
-		envButton:   &envButton,
-		requestBody: textfield.NewTextField(),
+		urlInput:        urlinput.NewUrlInput(logger),
+		headers:         headers.NewHeaders(logger),
+		saveButton:      &saveButton,
+		envButton:       &envButton,
+		showBodyButton:  &showBodyButton,
+		showRequestBody: false,
+		requestBody:     textfield.NewTextField(),
 	}
 }
 
@@ -53,6 +59,7 @@ func (r Request) GetFocusables() []app.Focusable {
 	focusables = append(focusables, r.envButton)
 	focusables = append(focusables, r.urlInput.GetFocusables()...)
 	focusables = append(focusables, r.headers.GetFocusables()...)
+	focusables = append(focusables, r.showBodyButton)
 	focusables = append(focusables, r.requestBody)
 	return focusables
 }

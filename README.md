@@ -15,10 +15,10 @@ Requires Go 1.26 or later. The UI uses Bubble Tea v2, Bubbles v2, and Lip Gloss 
 [Send] [Load] [Env]
 
 Request: [Save] [Default Env]
+    ──────────────────────────────────────────
     [GET] https://sample.app.com/path/to/something?query=nothing
     Headers: [Add Header]
     Body: [vv]
-    ──────────────────────────────────────────
     1 
     Config: [vv]
         script: ./script1.lua
