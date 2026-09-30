@@ -1,8 +1,6 @@
 package method
 
 import (
-	"fmt"
-
 	"charm.land/lipgloss/v2"
 )
 
@@ -16,15 +14,9 @@ var (
 )
 
 func (m Method) View() string {
-	method := listedTypes[m.selected]
+	method := MethodType(m.option.Value())
 	style := getStyleForMethod(method)
-
-	if m.focused {
-		return fmt.Sprintf("[↑↓ %s]", style.Render(string(method)))
-
-	} else {
-		return fmt.Sprintf("%s%s%s", styleDim.Render("["), style.Render(string(method)), styleDim.Render("]"))
-	}
+	return m.option.View(style.Render(string(method)))
 }
 
 func getStyleForMethod(method MethodType) lipgloss.Style {

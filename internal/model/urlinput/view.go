@@ -23,7 +23,7 @@ func (m UrlInput) View() string {
 
 	if strings.TrimSpace(val) != "" {
 		highlighted := m.highlightWithCursor(val, m.textInput.Position(), styleCursor)
-		inputView = m.textInput.Prompt + highlighted
+		inputView = m.textInput.Prompt() + highlighted
 
 	} else {
 		inputView = m.textInput.View()
@@ -107,7 +107,7 @@ func (m *UrlInput) highlightWithCursor(raw string, pos int, cursorStyle lipgloss
 	// Render each token group, handling the cursor position seamlessly
 	var b strings.Builder
 	for i := 0; i <= len(runes); i++ {
-		if i == pos && m.focused {
+		if i == pos && m.textInput.IsFocused() {
 			cursorChar := " "
 			if i < len(runes) {
 				cursorChar = string(runes[i])

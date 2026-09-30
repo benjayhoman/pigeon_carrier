@@ -2,8 +2,8 @@ package request
 
 import (
 	"github.com/pigeon_carrier/internal/app"
+	"github.com/pigeon_carrier/internal/model/enterbox"
 	"github.com/pigeon_carrier/internal/model/headers"
-	"github.com/pigeon_carrier/internal/model/method"
 	"github.com/pigeon_carrier/internal/model/textfield"
 	"github.com/pigeon_carrier/internal/model/urlinput"
 	"github.com/rs/zerolog"
@@ -12,19 +12,25 @@ import (
 )
 
 type Request struct {
-	method      *method.Method
+	saveButton *enterbox.EnterBox
+	envButton  *enterbox.EnterBox
+
 	urlInput    *urlinput.UrlInput
 	headers     *headers.Headers
 	requestBody *textfield.TextField
+
+	width int
 }
 
 func NewRequest(logger zerolog.Logger) *Request {
-	method := method.NewMethod(logger)
+	saveButton := enterbox.NewEnterBox(logger, "Save", nil)
+	envButton := enterbox.NewEnterBox(logger, "Default Env", nil)
 
 	return &Request{
-		method:      method,
-		urlInput:    urlinput.NewUrlInput(logger, method),
+		urlInput:    urlinput.NewUrlInput(logger),
 		headers:     headers.NewHeaders(logger),
+		saveButton:  &saveButton,
+		envButton:   &envButton,
 		requestBody: textfield.NewTextField(),
 	}
 }
@@ -42,8 +48,10 @@ func (r Request) GetHeaders() map[string]string {
 }
 
 func (r Request) GetFocusables() []app.Focusable {
-	focusables := make([]app.Focusable, 0, len(r.headers.GetFocusables())+3)
-	focusables = append(focusables, r.method, r.urlInput)
+	focusables := make([]app.Focusable, 0)
+	focusables = append(focusables, r.saveButton)
+	focusables = append(focusables, r.envButton)
+	focusables = append(focusables, r.urlInput.GetFocusables()...)
 	focusables = append(focusables, r.headers.GetFocusables()...)
 	focusables = append(focusables, r.requestBody)
 	return focusables

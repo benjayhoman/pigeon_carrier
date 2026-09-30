@@ -1,8 +1,10 @@
 package method
 
 import (
-	tea "charm.land/bubbletea/v2"
+	"github.com/pigeon_carrier/internal/model/option"
 	"github.com/rs/zerolog"
+
+	tea "charm.land/bubbletea/v2"
 )
 
 type MethodType string
@@ -15,15 +17,9 @@ const (
 	PATCH  MethodType = "PATCH"
 )
 
-var (
-	listedTypes    = listTypes()      // this should never change. Keep it precomputed
-	listedTypesLen = len(listedTypes) // this should never change. Keep it precomputed
-)
-
 type Method struct {
-	log      zerolog.Logger
-	selected int
-	focused  bool
+	log    zerolog.Logger
+	option *option.Option
 }
 
 func (m Method) Init() tea.Cmd {
@@ -32,18 +28,17 @@ func (m Method) Init() tea.Cmd {
 
 func NewMethod(logger zerolog.Logger) *Method {
 	return &Method{
-		log:      logger.With().Str("module", "method").Logger(),
-		selected: 0,
-		focused:  false,
+		log:    logger.With().Str("module", "method").Logger(),
+		option: option.NewOption(listTypes()),
 	}
 }
 
-func listTypes() []MethodType {
-	return []MethodType{
-		GET,
-		POST,
-		PUT,
-		DELETE,
-		PATCH,
+func listTypes() []string {
+	return []string{
+		string(GET),
+		string(POST),
+		string(PUT),
+		string(DELETE),
+		string(PATCH),
 	}
 }
