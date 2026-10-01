@@ -11,7 +11,7 @@ var (
 )
 
 func (c Config) View() string {
-	result := fmt.Sprintf("%s %s", styleDim.Render("Config:"), c.toggleButton.View())
+	result := fmt.Sprintf("%s %s", "Config:", c.toggleButton.View())
 	if !c.showFields {
 		return result
 	}

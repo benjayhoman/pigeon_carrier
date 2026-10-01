@@ -12,6 +12,7 @@ import (
 func (r *Results) Update(msg tea.Msg) tea.Cmd {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
+		r.width = msg.Width
 		r.body.SetWidth(msg.Width)
 		return nil
 
@@ -31,9 +32,9 @@ func (r *Results) Update(msg tea.Msg) tea.Cmd {
 	case action.ToggleResultHeaders:
 		r.hideHeaders = !r.hideHeaders
 		if r.hideHeaders {
-			r.toggleHeadersButton.SetSymbol("Show Headers")
+			r.toggleHeadersButton.SetSymbol("+")
 		} else {
-			r.toggleHeadersButton.SetSymbol("Hide Headers")
+			r.toggleHeadersButton.SetSymbol("-")
 		}
 		return nil
 	}

@@ -11,6 +11,7 @@ import (
 
 type Results struct {
 	log     zerolog.Logger
+	width   int
 	Status  int
 	Headers map[string]string
 
@@ -23,7 +24,7 @@ type Results struct {
 func NewResults(logger zerolog.Logger) *Results {
 	resultsLogger := logger.With().Str("module", "results").Logger()
 
-	toggleHeaderButton := addremovebox.NewEnterBox(resultsLogger, "Show Headers", ToggleResultHeadersOnEnter{})
+	toggleHeaderButton := addremovebox.NewEnterBox(resultsLogger, "+", ToggleResultHeadersOnEnter{})
 	body := scrollabletext.NewScrollableText(resultsLogger)
 
 	return &Results{

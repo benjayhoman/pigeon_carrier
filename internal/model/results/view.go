@@ -8,6 +8,10 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+const (
+	line = "─"
+)
+
 var (
 	styleDim = lipgloss.NewStyle().Faint(true)                     // Dim for other protocols
 	green    = lipgloss.NewStyle().Foreground(lipgloss.Color("2")) // Green for success
@@ -16,8 +20,8 @@ var (
 )
 
 func (r Results) View() string {
-	return fmt.Sprintf("%s %s %s\n%s\n%s\n\n",
-		styleDim.Render("Response:"),
+	return fmt.Sprintf("Response:\n%s\n  Status: %s\n  Headers: %s\n%s  Body:\n%s\n\n",
+		strings.Repeat(line, r.width),
 		styleStatus(fmt.Sprintf("%d", r.Status)),
 		r.toggleHeadersButton.View(),
 		r.styleHeaders(r.Headers),
@@ -40,7 +44,7 @@ func (r Results) styleHeaders(headers map[string]string) string {
 	var sb strings.Builder
 	for _, key := range keys {
 		value := headers[key]
-		sb.WriteString(fmt.Sprintf("%s : %s\n", styleDim.Render(key), styleDim.Render(value)))
+		sb.WriteString(fmt.Sprintf("    %s : %s\n", styleDim.Render(key), styleDim.Render(value)))
 	}
 	return sb.String()
 }

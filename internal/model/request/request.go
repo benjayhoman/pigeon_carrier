@@ -65,6 +65,8 @@ func (r Request) GetFocusables() []app.Focusable {
 	focusables = append(focusables, r.config.GetFocusables()...)
 	focusables = append(focusables, r.headers.GetFocusables()...)
 	focusables = append(focusables, r.showBodyButton)
-	focusables = append(focusables, r.requestBody)
+	if r.showRequestBody {
+		focusables = append(focusables, r.requestBody)
+	}
 	return focusables
 }
