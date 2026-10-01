@@ -20,5 +20,6 @@ func (c *Config) Update(msg tea.Msg) tea.Cmd {
 	scriptCmd := c.scriptInput.Update(msg)
 	clientCertCmd := c.clientCertInput.Update(msg)
 	clientKeyCmd := c.clientKeyInput.Update(msg)
-	return tea.Batch(toggleCmd, scriptCmd, clientCertCmd, clientKeyCmd)
+	caCertCmd := c.caCertInput.Update(msg)
+	return tea.Batch(toggleCmd, scriptCmd, clientCertCmd, clientKeyCmd, caCertCmd)
 }

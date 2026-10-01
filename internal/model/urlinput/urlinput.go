@@ -41,6 +41,10 @@ func (m UrlInput) Value() string {
 	return m.textInput.Value()
 }
 
+func (m UrlInput) GetMethod() string {
+	return m.method.Value()
+}
+
 func (m UrlInput) GetFocusables() []app.Focusable {
 	return []app.Focusable{m.method, m.textInput}
 }

@@ -53,8 +53,32 @@ func (r Request) GetURL() string {
 	return r.urlInput.Value()
 }
 
+func (r Request) GetMethod() string {
+	return r.urlInput.GetMethod()
+}
+
 func (r Request) GetHeaders() map[string]string {
 	return r.headers.GetHeaders()
+}
+
+func (r Request) GetBody() string {
+	return r.requestBody.Value()
+}
+
+func (r Request) GetScriptPath() string {
+	return r.config.GetScriptPath()
+}
+
+func (r Request) GetClientCertificatePath() string {
+	return r.config.GetClientCertificatePath()
+}
+
+func (r Request) GetClientKeyPath() string {
+	return r.config.GetClientKeyPath()
+}
+
+func (r Request) GetCaCertificatePath() string {
+	return r.config.GetCaCertificatePath()
 }
 
 func (r Request) GetFocusables() []app.Focusable {

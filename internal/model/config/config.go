@@ -25,6 +25,7 @@ type Config struct {
 	scriptInput     *textInput
 	clientCertInput *textInput
 	clientKeyInput  *textInput
+	caCertInput     *textInput
 }
 
 func NewConfig(logger zerolog.Logger) *Config {
@@ -33,6 +34,7 @@ func NewConfig(logger zerolog.Logger) *Config {
 	scriptInput := newTextInput("")
 	clientCertInput := newTextInput("")
 	clientKeyInput := newTextInput("")
+	caCertInput := newTextInput("")
 
 	return &Config{
 		log:             configLogger,
@@ -41,6 +43,7 @@ func NewConfig(logger zerolog.Logger) *Config {
 		scriptInput:     &scriptInput,
 		clientCertInput: &clientCertInput,
 		clientKeyInput:  &clientKeyInput,
+		caCertInput:     &caCertInput,
 	}
 }
 
@@ -48,9 +51,25 @@ func (c Config) Init() tea.Cmd {
 	return nil
 }
 
+func (c Config) GetScriptPath() string {
+	return c.scriptInput.Value()
+}
+
+func (c Config) GetClientCertificatePath() string {
+	return c.clientCertInput.Value()
+}
+
+func (c Config) GetClientKeyPath() string {
+	return c.clientKeyInput.Value()
+}
+
+func (c Config) GetCaCertificatePath() string {
+	return c.caCertInput.Value()
+}
+
 func (c Config) GetFocusables() []app.Focusable {
 	if !c.showFields {
 		return []app.Focusable{c.toggleButton}
 	}
-	return []app.Focusable{c.toggleButton, c.scriptInput, c.clientCertInput, c.clientKeyInput}
+	return []app.Focusable{c.toggleButton, c.scriptInput, c.clientCertInput, c.clientKeyInput, c.caCertInput}
 }

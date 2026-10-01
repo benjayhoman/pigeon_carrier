@@ -2,6 +2,7 @@ package program
 
 import (
 	"github.com/pigeon_carrier/internal/action"
+	"github.com/pigeon_carrier/internal/app/model"
 	"github.com/pigeon_carrier/internal/model/enterbox"
 	"github.com/pigeon_carrier/internal/model/request"
 	"github.com/pigeon_carrier/internal/model/results"
@@ -21,7 +22,7 @@ const (
 )
 
 type HttpClient interface {
-	CallHttp(url string, headers map[string]string) action.UpdateResults
+	CallHttp(logger zerolog.Logger, httpRequest model.HttpRequest) action.UpdateResults
 }
 
 type Program struct {

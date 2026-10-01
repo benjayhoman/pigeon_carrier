@@ -17,6 +17,7 @@ func (c Config) View() string {
 	}
 	result += fmt.Sprintf("\n    %s %s\n", styleDim.Render("script:"), c.scriptInput.View())
 	result += fmt.Sprintf("    %s %s\n", styleDim.Render("client certificate:"), c.clientCertInput.View())
-	result += fmt.Sprintf("    %s %s", styleDim.Render("client key:"), c.clientKeyInput.View())
+	result += fmt.Sprintf("    %s %s\n", styleDim.Render("client key:"), c.clientKeyInput.View())
+	result += fmt.Sprintf("    %s %s", styleDim.Render("ca certificate:"), c.caCertInput.View())
 	return result
 }

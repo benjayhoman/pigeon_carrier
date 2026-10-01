@@ -33,6 +33,10 @@ func NewMethod(logger zerolog.Logger) *Method {
 	}
 }
 
+func (m Method) Value() string {
+	return m.option.Value()
+}
+
 func listTypes() []string {
 	return []string{
 		string(GET),
