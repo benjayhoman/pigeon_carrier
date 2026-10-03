@@ -25,11 +25,11 @@ Request: [Save] [Default Env]
         client certificate: ./client-cert.crt
         client key: ./client-key.crt
 
-Response: 
+Response:
+    ──────────────────────────────────────────
     Status: 200 OK
     Headers: [>>]
     Body:
-    ──────────────────────────────────────────
     1 {
     2   "field": 42,
     3   "other_field": "something"

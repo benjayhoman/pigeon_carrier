@@ -40,7 +40,7 @@ func (c HttpClient) CallHttp(logger zerolog.Logger, httpRequest model.HttpReques
 		},
 	}
 
-	req, err := http.NewRequest(httpRequest.Method, httpRequest.Url, nil)
+	req, err := http.NewRequest(httpRequest.Method, httpRequest.Url, strings.NewReader(httpRequest.Body))
 	if err != nil {
 		return action.UpdateResults{
 			Body:       fmt.Sprintf("Error Building Request: %v\n", err),
@@ -49,6 +49,7 @@ func (c HttpClient) CallHttp(logger zerolog.Logger, httpRequest model.HttpReques
 		}
 	}
 
+	req.Header.Set("User-Agent", "PigeonCarrier/1.0")
 	for key, value := range httpRequest.Headers {
 		req.Header.Set(key, value)
 	}
